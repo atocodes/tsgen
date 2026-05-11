@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/atocodes/tsgen/internal/installer"
+	"github.com/atocodes/tsgen/internal/template"
 )
 
 func CreateProject(name string, installPackages bool) error {
@@ -24,7 +25,7 @@ func CreateProject(name string, installPackages bool) error {
 
 	//Copy package.json
 	err = copyTemplate(
-		"internal/template/base/package.json",
+		"base/package.json",
 		filepath.Join(name, "package.json"),
 		name,
 	)
@@ -35,7 +36,7 @@ func CreateProject(name string, installPackages bool) error {
 
 	// Copy nodemon.json
 	err = copyTemplate(
-		"internal/template/base/nodemon.json",
+		"base/nodemon.json",
 		filepath.Join(name, "nodemon.json"),
 		name,
 	)
@@ -46,7 +47,7 @@ func CreateProject(name string, installPackages bool) error {
 
 	// Copy tsconfig.json
 	err = copyTemplate(
-		"internal/template/base/tsconfig.json",
+		"base/tsconfig.json",
 		filepath.Join(name, "tsconfig.json"),
 		name,
 	)
@@ -57,7 +58,7 @@ func CreateProject(name string, installPackages bool) error {
 
 	// Copy index.json
 	err = copyTemplate(
-		"internal/template/base/src/index.ts",
+		"base/src/index.ts",
 		filepath.Join(name, "src/index.ts"),
 		name,
 	)
@@ -68,7 +69,7 @@ func CreateProject(name string, installPackages bool) error {
 
 	// Copy gitignore
 	err = copyTemplate(
-		"internal/template/base/.gitignore",
+		"base/.gitignore",
 		filepath.Join(name, ".gitignore"),
 		name,
 	)
@@ -101,7 +102,7 @@ func CreateProject(name string, installPackages bool) error {
 
 func copyTemplate(src string, dest string, projectName string) error {
 	// Read template file
-	content, err := os.ReadFile(src)
+	content, err := template.Files.ReadFile(src)
 
 	if err != nil {
 		return err
