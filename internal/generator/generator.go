@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/atocodes/tsgen/internal/installer"
+	"github.com/atocodes/tsgen/internal/network"
 	"github.com/atocodes/tsgen/internal/template"
 )
 
@@ -79,12 +80,16 @@ func CreateProject(name string, installPackages bool) error {
 	}
 
 	if installPackages {
-		println("Installing Packages...")
+		if !network.HasInternetConnection() {
+			println("No internet connection detected. I ain't installing your damn packages 😭 Fix your internet and install them yourself.")
+		} else {
 
-		err = installer.InstallDependencies(name)
+			println("Installing Packages...")
+			err = installer.InstallDependencies(name)
 
-		if err != nil {
-			return err
+			if err != nil {
+				return err
+			}
 		}
 	}
 

@@ -7,9 +7,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/spf13/cobra"
-
 	"github.com/atocodes/tsgen/internal/generator"
+	"github.com/spf13/cobra"
 )
 
 var installPackages bool
